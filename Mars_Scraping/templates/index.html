@@ -44,37 +44,29 @@
                     />
                 </div>
 
-                <!-- Mars Facts-->
-                <div class="col-md-4">
-                    <div class="row" id="mars-facts">
-                        <h4>Mars Facts</h4>
-                        {{ mars.facts | safe }}
-                    </div>
-                </div>
-            </div>   
-        </div>
-        
-        <!--Mars Hemispheres-->
-        <div class="row" id="mars-hemispheres">
-            <div class="page-header">
-                <h2 class="text-center">Mars Hemispheres</h2>
+                <!-- Print out the table of Mars facts on the right side of the page-->
+        <div class="row">
+            <div class="col-md-12">    
+                <h3><b>Mars Facts:</b></h3>
+                <p>{{mars.facts | safe}}</p><br>
             </div>
-            
-        {% for hemispheres in mars.hemispheres %}
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img 
-                        src="{{ hemispheres.img_url | default('../images/error.png', true) }}" 
-                        alt="responsive image"
-                        class="img-responsive"
-                    />
-                    <div class="caption">
-                        <h3>{{ hemispheres.title }}</h3>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+          </div>
         </div>
+      </div>
+  
+      <!-- Mars Hemispheres: Use a For Loop to run through a 2x2 grid of the hemispheres, getting the full-res image and title for each.-->
+      <h2 class="text-center"><u>Mars Hemispheres</u></h2>
+      {% for hemispheres in mars.hemisphere %}
+      <div class="col-md-6">
+        <div class = "thumbnail">
+          <img src='{{hemisphere.image_url}}'>
+        </div>
+        <div class = 'caption'>
+          <h3><b>{{hemisphere.title}}</b></h3>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
     
     </body>
 </html>
