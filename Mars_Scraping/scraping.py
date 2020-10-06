@@ -18,7 +18,7 @@ def scrape_all():
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
-        "hemispheres": hemisphere_links
+        "hemisphere": hemisphere_links(browser)
     }
 
     # Stop webdriver and return data
@@ -107,49 +107,43 @@ def hemisphere_links(browser):
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
 
+     # Convert the browser html to a soup object and then quit the browser
+    html = browser.html
+    hemi_soup = soup(html, 'html.parser')
+    
     # 2. Create a list to hold the images and titles.
     hemisphere_links  = []
-    title_link = browser.find_by_css('.itemLink.product-item h3')
+    title_link = hemi_soup.find_all('h3')
 
     for x in title_link:
         hemisphere_links.append(x.text)
-    
+
+    # Initialize list
+    hemisphere_image_links  = []  
+
+    # 2. Create a list to hold the images and titles.
+    # Loop through 
+
     for x in range(len(hemisphere_links)): 
+        # Initialize a dictionary for hemisphere
         hemisphere = {}
         
+        # Click on the link with the corresponding text
         browser.find_by_css("a.product-item h3")[x].click()
         
-        sample_text = browser.links.find_by_text('Sample').first
-        hemisphere['img_url'] = sample_text['href']
-        
+        hemisphere['img_url'] = browser.find_by_text('Sample')['href']
         hemisphere['title'] = browser.find_by_css("h2.title").text
+
         
         # append the url
-        hemisphere_links.append(hemisphere)
-        
+        hemisphere_image_links.append(hemisphere)
+    
         # go back for each loop
         browser.back()
 
-    return hemisphere_links 
-
-def scrape_hemisphere(html_text):
-    hemisphere_soup = soup(html_text, 'html.parser')
-    hemisphere = {}
-
-    # Add try/except for error handling
-    try:
-        hemisphere['title'] = hemisphere_soup.find("h2", class_="title").get_text()
-        hemisphere['img_url'] = hemisphere_soup.find("a", text="sample").get("scr")
     
-    except AttributeError:
-        return None
-    
-    hemispheres = {
-        "title":hemisphere['title'],
-        "image_url":hemisphere['img_url']
-    }
+    return hemisphere_image_links
 
-    return hemispheres
  
 
 if __name__ == "__main__":

@@ -49,12 +49,11 @@
                     <h3><b>Mars Facts:</b></h3>
                     <p>{{mars.facts | safe}}</p><br>
                 </div>
-          </div>
         </div>
   
       <!-- Mars Hemispheres: Use a For Loop to run through a 2x2 grid of the hemispheres, getting the full-res image and title for each.-->
-      <h2 class="text-center"><u>Mars Hemispheres</u></h2>
-      {% for hemispheres in mars.hemisphere %}
+      <h2 class="text-center">Mars Hemispheres</h2>
+      {% for hemisphere in mars.hemisphere %}
       <div class="col-md-6">
         <div class = "thumbnail">
           <img src='{{hemisphere.image_url}}'>
