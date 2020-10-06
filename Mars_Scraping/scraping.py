@@ -18,7 +18,7 @@ def scrape_all():
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
-        "hemisphere": hemisphere_links(browser)
+        "hemispheres": hemisphere_links(browser)
     }
 
     # Stop webdriver and return data
@@ -126,17 +126,16 @@ def hemisphere_links(browser):
 
     for x in range(len(hemisphere_links)): 
         # Initialize a dictionary for hemisphere
-        hemisphere = {}
+        hemispheres = {}
         
         # Click on the link with the corresponding text
         browser.find_by_css("a.product-item h3")[x].click()
         
-        hemisphere['img_url'] = browser.find_by_text('Sample')['href']
-        hemisphere['title'] = browser.find_by_css("h2.title").text
-
+        hemispheres['img_url'] = browser.find_by_text('Sample')['href']
+        hemispheres['title'] = browser.find_by_css("h2.title").text
         
         # append the url
-        hemisphere_image_links.append(hemisphere)
+        hemisphere_image_links.append(hemispheres)
     
         # go back for each loop
         browser.back()

@@ -53,13 +53,13 @@
   
       <!-- Mars Hemispheres: Use a For Loop to run through a 2x2 grid of the hemispheres, getting the full-res image and title for each.-->
       <h2 class="text-center">Mars Hemispheres</h2>
-      {% for hemisphere in mars.hemisphere %}
+      {% for hemispheres in mars.hemispheres %}
       <div class="col-md-6">
         <div class = "thumbnail">
-          <img src='{{hemisphere.image_url}}'>
+          <img src='{{hemispheres.image_url}}'>
         </div>
         <div class = 'caption'>
-          <h3><b>{{hemisphere.title}}</b></h3>
+          <h3><b>{{hemispheres.title}}</b></h3>
         </div>
       </div>
       {% endfor %}
